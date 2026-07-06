@@ -1,5 +1,30 @@
 # challenge-alura-agent
 
+## Instalación y Configuración
+
+Este proyecto utiliza [uv](https://docs.astral.sh/uv/) como gestor de paquetes y dependencias. `uv` reemplaza herramientas tradicionales como `pip` o `poetry`, ofreciendo instalaciones y resoluciones mucho más veloces.
+
+### Comandos básicos de `uv`
+
+1. **Sincronizar el entorno virtual**:
+   Para crear el entorno virtual (`.venv`) e instalar todas las dependencias definidas en el `uv.lock`:
+   ```bash
+   uv sync
+   ```
+
+2. **Añadir nuevas dependencias**:
+   ```bash
+   uv add <paquete>
+   ```
+
+3. **Ejecutar comandos en el entorno**:
+   No necesitas activar manualmente el `.venv`. Usa `uv run`:
+   ```bash
+   uv run python src/agents/rag_support/agent.py
+   ```
+
+---
+
 ## Estructura del Proyecto (Project Structure)
 
 Este proyecto utiliza una **Arquitectura Basada en Componentes** diseñada especialmente para construir agentes escalables con LangGraph y LangChain.
