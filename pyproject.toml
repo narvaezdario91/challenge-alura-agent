@@ -9,3 +9,9 @@ dependencies = [
     "langgraph>=1.2.7",
     "langgraph-checkpoint>=4.1.1",
 ]
+
+[dependency-groups]
+dev = [
+    "langgraph-cli>=0.4.30",
+    "langsmith>=0.9.7",
+]
