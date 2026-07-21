@@ -1,0 +1,15 @@
+# Environment variables
+.env
+
+# Cache & Local Vector Store
+.chroma_db/
+.vector_cache.pkl
+
+# Python Cache & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+
+# OpenSpec local changes
+openspec/changes/

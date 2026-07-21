@@ -1,6 +1,10 @@
-from typing import TypedDict, Annotated
-import operator
+from typing import Annotated, Sequence
+from typing_extensions import TypedDict
+from langchain_core.messages import BaseMessage
+from langgraph.graph.message import add_messages
+
 
 class AgentState(TypedDict):
-    messages: Annotated[list, operator.add]
-    # Añadir más campos según necesidad (e.g. documents, current_intent)
+    messages: Annotated[Sequence[BaseMessage], add_messages]
+    context_documents: list[str]
+    needs_rag: bool
