@@ -13,3 +13,7 @@ __pycache__/
 
 # OpenSpec local changes
 openspec/changes/
+
+# Temporary Excel lock files
+~$*.xlsx
+

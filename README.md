@@ -100,13 +100,22 @@ Este proyecto utiliza **[uv](https://docs.astral.sh/uv/)** para una gestión ult
 uv sync
 ```
 
-### 2. Iniciar el Agente Conversacional
+### 2. Iniciar la Interfaz Web con Streamlit
 
-Ejecuta el chat en consola:
+Ejecuta la aplicación gráfica en tu navegador:
+
+```bash
+uv run streamlit run app.py
+```
+
+### 3. Iniciar el Agente en Consola (CLI)
+
+También puedes interactuar mediante consola:
 
 ```bash
 uv run python main.py
 ```
+
 
 ### 3. Re-indexar la Base de Conocimiento (Opcional)
 
