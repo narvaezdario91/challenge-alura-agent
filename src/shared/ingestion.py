@@ -18,8 +18,10 @@ def load_pdf_documents(knowledge_base_dir: str) -> list[Document]:
     )
 
     for pdf_path in pdf_files:
+        filename = os.path.basename(pdf_path)
+        if filename.startswith("~$"):
+            continue
         try:
-            filename = os.path.basename(pdf_path)
             reader = PdfReader(pdf_path)
             raw_docs = []
             for i, page in enumerate(reader.pages):
@@ -50,8 +52,10 @@ def load_excel_documents(knowledge_base_dir: str) -> list[Document]:
     excel_files = glob.glob(os.path.join(knowledge_base_dir, "*.xlsx")) + glob.glob(os.path.join(knowledge_base_dir, "*.xls"))
 
     for excel_path in excel_files:
+        filename = os.path.basename(excel_path)
+        if filename.startswith("~$"):
+            continue
         try:
-            filename = os.path.basename(excel_path)
             xls = pd.ExcelFile(excel_path)
             for sheet_name in xls.sheet_names:
                 df = pd.read_excel(xls, sheet_name=sheet_name)

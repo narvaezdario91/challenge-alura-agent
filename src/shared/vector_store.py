@@ -49,6 +49,42 @@ class LocalVectorStore:
         return [self.documents[idx] for idx in top_k_indices]
 
 
+import time
+
+
+def _embed_documents_in_batches(embeddings_client, texts: list[str], batch_size: int = 40, delay: float = 1.5) -> list[list[float]]:
+    """Genera embeddings en lotes para evitar límites de tasa (429 Rate Limit)."""
+    all_embeddings = []
+    total = len(texts)
+    num_batches = (total + batch_size - 1) // batch_size
+
+    for i in range(0, total, batch_size):
+        batch = texts[i : i + batch_size]
+        current_batch_num = i // batch_size + 1
+        print(f"Procesando lote {current_batch_num}/{num_batches} ({len(batch)} pasajes)...")
+
+        retries = 0
+        while retries < 5:
+            try:
+                batch_embeddings = embeddings_client.embed_documents(batch)
+                all_embeddings.extend(batch_embeddings)
+                break
+            except Exception as e:
+                err_msg = str(e).lower()
+                if "429" in err_msg or "rate limit" in err_msg or "too many requests" in err_msg:
+                    retries += 1
+                    wait_time = retries * 6
+                    print(f"Límite de tasa alcanzado (429). Reintentando en {wait_time}s (intento {retries}/5)...")
+                    time.sleep(wait_time)
+                else:
+                    raise e
+
+        if i + batch_size < total and delay > 0:
+            time.sleep(delay)
+
+    return all_embeddings
+
+
 _store_instance = None
 
 
@@ -78,15 +114,14 @@ def get_vector_store(force_reload: bool = False) -> LocalVectorStore:
 
     print(f"Generando embeddings para {len(texts)} pasajes...")
     try:
-        embeddings_list = embeddings_client.embed_documents(texts)
+        embeddings_list = _embed_documents_in_batches(embeddings_client, texts)
         matrix = np.array(embeddings_list, dtype=np.float32)
         store = LocalVectorStore(documents=documents, embeddings_matrix=matrix)
         store.save(CACHE_FILE)
         _store_instance = store
         return _store_instance
     except Exception as e:
-        print(f"Error generando embeddings con el servidor LM Studio: {e}")
-        print("Asegúrate de que LM Studio esté corriendo y el modelo de embedding esté cargado.")
+        print(f"Error generando embeddings: {e}")
         # Retornar store con embeddings vacíos temporalmente para no bloquear la ejecución
         _store_instance = LocalVectorStore(documents=documents, embeddings_matrix=None)
         return _store_instance

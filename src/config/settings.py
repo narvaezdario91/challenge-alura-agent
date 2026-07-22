@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     LLM_MODEL_NAME: str = "nvidia/nemotron-3-nano-4b"
     EMBEDDING_MODEL_NAME: str = "nomic-ai/nomic-embed-text-v1.5-GGUF"
     LLM_API_KEY: str = "lm-studio"
+    COHERE_API_KEY: str = ""
     LLM_TEMPERATURE: float = 0.1
     LLM_STREAMING: bool = True
 

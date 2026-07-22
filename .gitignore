@@ -17,3 +17,8 @@ openspec/changes/
 # Temporary Excel lock files
 ~$*.xlsx
 
+# SSH Keys and private folders
+*.key
+privado_oci/
+
+
