@@ -4,11 +4,14 @@
 [![Framework](https://img.shields.io/badge/Framework-LangGraph%20%7C%20LangChain-orange.svg)](https://www.langchain.com/)
 [![Frontend](https://img.shields.io/badge/UI-Streamlit-red.svg)](https://streamlit.io/)
 [![Cloud Deployment](https://img.shields.io/badge/Cloud-Oracle%20Cloud%20(OCI)-red.svg)](https://cloud.oracle.com/)
+[![Trello Board](https://img.shields.io/badge/Trello-Board%20del%20Proyecto-0079BF.svg?logo=trello&logoColor=white)](https://trello.com/b/VW6bR5kG/challenge-1-alura)
 [![Package Manager](https://img.shields.io/badge/Package%20Manager-uv-purple.svg)](https://docs.astral.sh/uv/)
 
 ## 📋 Resumen Ejecutivo
 
 Sistema inteligente de asistencia conversacional con arquitectura **RAG (Retrieval-Augmented Generation)** y procesamiento de documentos. La solución está construida sobre **LangGraph** utilizando la convención modular **SIDE (State, Instructions, Decisions, Execution)** y soporta múltiples proveedores de LLM y Embeddings (LM Studio Local, OpenAI y **Cohere API**).
+
+* 📌 **Tablero de Gestión del Proyecto (Trello):** [Challenge 1 Alura - Trello Board](https://trello.com/b/VW6bR5kG/challenge-1-alura)
 
 Para maximizar la portabilidad y evitar incompatibilidades de seguridad en entornos Windows (bloqueos de DLLs de C/C++), el sistema utiliza un **`LocalVectorStore`** en memoria basado en **NumPy** y **Pickle**, garantizando alta velocidad de recuperación vectorial sin dependencias nativas bloqueadas.
 
